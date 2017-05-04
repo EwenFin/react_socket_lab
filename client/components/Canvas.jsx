@@ -3,11 +3,6 @@ import React from 'react'
 
 class Canvas extends React.Component{
 
-  createCanvasContext() {
-    let canvas = document.querySelector('canvas')
-    let ctx = canvas.getContext('2d')
-  }
-
 
   render() {
     return(
