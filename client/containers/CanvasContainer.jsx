@@ -1,11 +1,24 @@
 import React from 'react'
+import Canvas from '../components/Canvas'
 
 class CanvasContainer extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      canvas: null,
+      key: 1
+    }
+  }
+
+
+
+
 
   render() {
     return(
       <div>
-        <h1>Hey Dave and Ewen!</h1>
+        <Canvas/>
       </div>
     )
   }
