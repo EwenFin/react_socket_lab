@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "webpack": "^2.5.0"
+  },
+  "dependencies": {
+    "socket.io-client": "^1.7.3"
   }
 }

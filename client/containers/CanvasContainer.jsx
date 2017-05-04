@@ -1,14 +1,19 @@
 import React from 'react'
 import Canvas from '../components/Canvas'
+import io from 'socket.io-client'
 
 class CanvasContainer extends React.Component {
 
+
   constructor(props) {
     super(props)
+    this.context = null
     this.state = {
-      canvas: null,
-      key: 1
+      canvas: null
     }
+
+    this.socket = io('http://localhost:3000/')
+    this.socket.on('draw', this.drawRect.bind(this))
   }
 
   getMousePos(canvas, evt) {
@@ -21,22 +26,25 @@ class CanvasContainer extends React.Component {
 
   createCanvasContext() {
     let canvas = document.querySelector('canvas')
-    let ctx = canvas.getContext('2d')
+    this.context = canvas.getContext('2d')
     canvas.onclick = function(event) {
       const position = this.getMousePos(canvas, event)
-      this.drawRect(ctx, position.x, position.y)
-      console.log(event.x, event.y)
+      this.drawRect(position)
+      this.socket.emit('draw', position)
     }.bind(this)
+    this.setState({canvas: canvas})
   }
 
-  drawRect(context, x, y){
-    context.fillStyle = 'hotpink'
-    context.fillRect(x, y, 10, 10)
+  drawRect(position){
+    this.context.fillStyle = 'hotpink'
+    this.context.fillRect(position.x, position.y, 10, 10)
   }
 
   componentDidMount() {
     this.createCanvasContext()
   }
+
+
 
 
   render() {
